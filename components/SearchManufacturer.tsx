@@ -31,7 +31,7 @@ const filteredManufacturers = query === "" ? manufacturers : manufacturers.filte
 
           <Combobox.Input
             className="search-manufacturer__input"
-            placeholder="Volkeswageb"
+            placeholder="Volkeswagen"
             displayValue={(manufacturer: string) => manufacturer}
             onChange={(e) => setQuery(e.target.value)}
           />
@@ -43,6 +43,34 @@ const filteredManufacturers = query === "" ? manufacturers : manufacturers.filte
             afterLeave={() => setQuery("")}
           >
             <Combobox.Options>
+              <Combobox.Option
+                key={0}
+                className={({ active }) =>
+                  `relative search-manufacturer__option ${
+                    active ? "bg-primary-blue text-white" : "text-gray-900"
+                  }`
+                }
+                value=""
+              >
+                {({ selected, active }) => (
+                  <>
+                    <span
+                      className={`block truncate ${
+                        selected ? "font-medium" : "font-normal"
+                      }`}
+                    >
+                      No Select
+                    </span>
+                    {selected ? (
+                      <span
+                        className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
+                          active ? "text-white" : "text-teal-600"
+                        }`}
+                      ></span>
+                    ) : null}
+                  </>
+                )}
+              </Combobox.Option>
               {filteredManufacturers.length === 0 && query !== "" ? (
                 <div className="relative cursor-default select-none mt-5">
                   {" "}
@@ -59,23 +87,23 @@ const filteredManufacturers = query === "" ? manufacturers : manufacturers.filte
                     }
                     value={item}
                   >
-                    {({selected, active}) => (
-                            <>
-                            <span
-                                className={`block truncate ${selected ? "font-medium" : "font-normal"}`}
-                            >
-                                {item}
-                            </span>
-                            {selected ? (
-                                <span
-                                className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
-                                    active ? "text-white" : "text-teal-600"
-                                }`}
-                                >
-                        
-                                </span>
-                            ) : null}
-                            </>
+                    {({ selected, active }) => (
+                      <>
+                        <span
+                          className={`block truncate ${
+                            selected ? "font-medium" : "font-normal"
+                          }`}
+                        >
+                          {item}
+                        </span>
+                        {selected ? (
+                          <span
+                            className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
+                              active ? "text-white" : "text-teal-600"
+                            }`}
+                          ></span>
+                        ) : null}
+                      </>
                     )}
                   </Combobox.Option>
                 ))

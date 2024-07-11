@@ -1,10 +1,21 @@
 import {Hero, SearchBar, CustomFilter, CarCard} from '@/components'
 import {fetchCars} from "@/utils";
+import { fuels, yearsOfProduction} from '@/constants'
 
-export default async function Home() {
+export default async function Home({searchParams}) {
 
-    const allCars = await fetchCars()
+    const allCars = await fetchCars({
+      manufacturer: searchParams.manufacturer || "",
+      model: searchParams.model || "",
+      year: searchParams.year || 2024,
+      fuel: searchParams.fuel || "",
+      limit: searchParams.limit || 10,
+    });
     const isDataEmpty = !Array.isArray(allCars) || allCars.length < 1 || !allCars
+
+
+    function handleSearch(val) {}
+    
     return <main className="overflow-hidden">
         <Hero/>
         <div className="mt-12 padding-x padding-y ma-width" id="discover">
@@ -15,14 +26,14 @@ export default async function Home() {
                     <SearchBar/>
 
                     <div className="home__filter-container">
-                        <CustomFilter title="fuel"/>
-                        <CustomFilter title="year"/>
+                        <CustomFilter title="fuel" options={fuels}/>
+                        <CustomFilter title="year"  options={yearsOfProduction}/>
                     </div>
                 </div>
                 {!isDataEmpty ? (
 
-                    <div className={"home__cars-wrapper"}> {allCars?.map((car) =>
-                        <CarCard car={car}/>
+                    <div className={"home__cars-wrapper"}> {allCars?.map((car, index) =>
+                        <CarCard key={index} car={car}/>
                     )}</div>
                 ) : (
                     <div className={"home__error-container"}>
