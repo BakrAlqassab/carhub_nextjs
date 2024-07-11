@@ -6,7 +6,7 @@ import {useState, Fragment} from 'react'
 import { manufacturers } from '@/constants'
 import {Combobox, Transition} from '@headlessui/react'
 
-const SearchManufacturer = ({manufacturer, setManufacturer} :SearchManufacturerProps ) => {
+const SearchManufacturer = ({selected, setSelected} :SearchManufacturerProps ) => {
     const [query, setQuery] = useState('');
 
 const filteredManufacturers = query === "" ? manufacturers : manufacturers.filter((item) => (
@@ -17,7 +17,7 @@ const filteredManufacturers = query === "" ? manufacturers : manufacturers.filte
 
   return (
     <div className="search-manufacturer">
-      <Combobox value={manufacturer} onChange={setManufacturer}>
+      <Combobox value={selected} onChange={setSelected}>
         <div className="relative w-full">
           <Combobox.Button className="absolute top-[14px]">
             <Image
@@ -32,7 +32,7 @@ const filteredManufacturers = query === "" ? manufacturers : manufacturers.filte
           <Combobox.Input
             className="search-manufacturer__input"
             placeholder="Volkeswagen"
-            displayValue={(manufacturer: string) => manufacturer}
+            displayValue={(selected: string) => selected}
             onChange={(e) => setQuery(e.target.value)}
           />
           <Transition

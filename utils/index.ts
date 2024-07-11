@@ -11,8 +11,8 @@ export async function fetchCars(filters: FilterProps) {
     const headers = {
         'X-RapidAPI-Key': process.env.XRapidAPIKey,
         'X-RapidAPI-Host': process.env.XRapidAPIHost
-    }
-
+    }   
+    
     const response = await fetch(`https://cars-by-api-ninjas.p.rapidapi.com/v1/cars?make=${manufacturer}&year=${year}&limit=${limit}&fuel_type=${fuel}&model=${model}`, {headers: headers});
     const result = await response.json()
     return result

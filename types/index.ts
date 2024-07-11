@@ -22,8 +22,8 @@ export interface CustomFilterProps {
 }
 
 export interface SearchManufacturerProps {
-    manufacturer: string;
-    setManufacturer: (manufacturer: string) => void;
+    selected: string;
+    setSelected: (selected: string) => void;
 }
 
 export interface CarProps {
@@ -51,5 +51,6 @@ export interface FilterProps {
 }
 export interface ShowMoreProps {
     pageNumber:number,
-    ixNext:boolean
+    ixNext:boolean,
+    setLimit:() => void;
 }

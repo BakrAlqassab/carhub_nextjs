@@ -1,25 +1,25 @@
 "use client"
 import React, { Fragement, useState} from 'react'
 import {CustomFilterProps} from '@/types'
-import {useRouter} from "next/navigation"
+// import {useRouter} from "next/navigation"
 import Image from "next/image";
 import {Listbox, Transition} from "@headlessui/react"
 
 import {updateSearchParams} from "@/utils"
 
-const CustomFilter = ({title, options}: CustomFilterProps) => {
-  const router = useRouter();
+const CustomFilter = ({title, options, setFilter}: CustomFilterProps) => {
+  // const router = useRouter();
   const [selected, setselected] = useState(options[0]);
 
     
-  const handleUpdateParams= (e:{title:string, value:String}) => {
- const newPathName = updateSearchParams(title, e.value.toLowerCase());    
-    router.push(newPathName);
-};
+//   const handleUpdateParams= (e:{title:string, value:String}) => {
+//  const newPathName = updateSearchParams(title, e.value.toLowerCase());    
+//     router.push(newPathName);
+// };
 
   return (
     <div className="w-fit">
-      <Listbox value={selected} onChange={(e) =>{ setselected(e); handleUpdateParams(e);}} >
+      <Listbox value={selected} onChange={(e) =>{ setselected(e); setFilter(e.value);}} >
         <div className="relative w-fir z-10">
           <Listbox.Button className="custom-filter__btn">
             <span className="block truncate"> {selected.title}</span>
