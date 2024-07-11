@@ -1,16 +1,25 @@
 "use client"
 import React, { Fragement, useState} from 'react'
 import {CustomFilterProps} from '@/types'
-import useRouter from "next/navigation"
+import {useRouter} from "next/navigation"
 import Image from "next/image";
 import {Listbox, Transition} from "@headlessui/react"
 
+import {updateSearchParams} from "@/utils"
+
 const CustomFilter = ({title, options}: CustomFilterProps) => {
+  const router = useRouter();
   const [selected, setselected] = useState(options[0]);
+
+    
+  const handleUpdateParams= (e:{title:string, value:String}) => {
+ const newPathName = updateSearchParams(title, e.value.toLowerCase());    
+    router.push(newPathName);
+};
 
   return (
     <div className="w-fit">
-      <Listbox value={selected} onChange={(e) => setselected(e)}>
+      <Listbox value={selected} onChange={(e) =>{ setselected(e); handleUpdateParams(e);}} >
         <div className="relative w-fir z-10">
           <Listbox.Button className="custom-filter__btn">
             <span className="block truncate"> {selected.title}</span>
@@ -33,9 +42,21 @@ const CustomFilter = ({title, options}: CustomFilterProps) => {
                 <Listbox.Option
                   key={index}
                   value={option}
-                  className={({active})=> `relative cursor-default select-none py-2 px-4 ${active ? "bg-primary-blue text-white": "text-gray-900"}`}
+                  className={({ active }) =>
+                    `relative cursor-default select-none py-2 px-4 ${
+                      active ? "bg-primary-blue text-white" : "text-gray-900"
+                    }`
+                  }
                 >
-                  {({ selected }) => <span>{option.title}</span>}
+                  {({ selected }) => (
+                    <span
+                      className={`block truncate ${
+                        selected ? "font-medium" : "font-normal"
+                      }`}
+                    >
+                      {option.title}
+                    </span>
+                  )}
                 </Listbox.Option>
               ))}
             </Listbox.Options>
