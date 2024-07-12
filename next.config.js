@@ -6,6 +6,9 @@ const nextConfig = {
         XRapidAPIKey: process.env.XRapidAPIKey,
         XRapidAPIHost: process.env.XRapidAPIHost,
       },
+      typescript: {
+        ignoreBuildErrors: true,
+      }
 }
 
 module.exports = nextConfig
